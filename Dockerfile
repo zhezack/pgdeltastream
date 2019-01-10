@@ -1,23 +1,12 @@
-FROM golang:1.10
+FROM golang:1.11.1-alpine as builder
 
-ENV DBNAME "postgres"
-ENV PGUSER "postgres"
-# TODO: better handle default pass
-ENV PGPASS "''" 
-ENV PGHOST "localhost"
-ENV PGPORT 5432
-ENV SERVERHOST "localhost"
-ENV SERVERPORT 12312
-
-RUN go get -u github.com/golang/dep/cmd/dep
-
-ADD . /go/src/github.com/hasura/pgdeltastream
-
-WORKDIR /go/src/github.com/hasura/pgdeltastream
-
-RUN dep ensure --vendor-only
-
+RUN apk add git && go get -u github.com/golang/dep/cmd/dep
+ADD . /go/src/github.com/zhezack/pgdeltastream
+WORKDIR /go/src/github.com/zhezack/pgdeltastream
 RUN go build .
 
-EXPOSE ${SERVERPORT}
-CMD  "./pgdeltastream" "--db" ${DBNAME} "--user" ${PGUSER} "--password" ${PGPASS} "--pgHost" ${PGHOST} "--pgPort" ${PGPORT} "--serverHost" ${SERVERHOST} "--serverPort" ${SERVERPORT} 
+FROM alpine:3.8
+RUN apk add ca-certificates
+COPY --from=builder /go/src/github.com/zhezack/pgdeltastream /app/
+WORKDIR /app
+CMD  ["./pgdeltastream"]

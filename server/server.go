@@ -8,9 +8,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
-	"github.com/hasura/pgdeltastream/db"
-	"github.com/hasura/pgdeltastream/types"
 	log "github.com/sirupsen/logrus"
+	"github.com/zhezack/pgdeltastream/db"
+	"github.com/zhezack/pgdeltastream/types"
 )
 
 var wsupgrader = websocket.Upgrader{

@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/hasura/pgdeltastream/types"
 	"github.com/jackc/pgx"
 	log "github.com/sirupsen/logrus"
+	"github.com/zhezack/pgdeltastream/types"
 )
 
 // SnapshotData queries the snapshot for data from the given table

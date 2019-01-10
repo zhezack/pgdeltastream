@@ -7,9 +7,9 @@ import (
 
 	"github.com/gorilla/websocket"
 
-	"github.com/hasura/pgdeltastream/types"
 	"github.com/jackc/pgx"
 	log "github.com/sirupsen/logrus"
+	"github.com/zhezack/pgdeltastream/types"
 )
 
 var statusHeartbeatIntervalSeconds = 10
@@ -45,11 +45,12 @@ func LRStream(session *types.Session) {
 			log.WithError(err).Errorf("%s", reflect.TypeOf(err))
 		}
 
+		if message == nil {
+			log.Error("Message nil")
+			continue
+		}
+
 		if message.WalMessage != nil {
-			if message == nil {
-				log.Error("Message nil")
-				continue
-			}
 			walData := message.WalMessage.WalData
 			log.Infof("Received replication message: %s", string(walData))
 

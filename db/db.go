@@ -6,15 +6,15 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hasura/pgdeltastream/types"
 	log "github.com/sirupsen/logrus"
+	"github.com/zhezack/pgdeltastream/types"
 
 	"github.com/jackc/pgx"
 )
 
 var dbConfig = pgx.ConnConfig{}
 
-// Initialize the database configuration
+// CreateConfig Initialize the database configuration
 func CreateConfig(dbName, pgUser, pgPass, pgHost string, pgPort int) {
 	dbConfig.Database = dbName
 	dbConfig.Host = pgHost

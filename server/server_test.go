@@ -8,11 +8,11 @@ import (
 	"testing"
 
 	"github.com/gorilla/websocket"
-	"github.com/hasura/pgdeltastream/db"
+	"github.com/zhezack/pgdeltastream/db"
 
 	"github.com/jackc/pgx"
 
-	"github.com/hasura/pgdeltastream/types"
+	"github.com/zhezack/pgdeltastream/types"
 )
 
 func TestInit(t *testing.T) {
